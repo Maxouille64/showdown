@@ -11,8 +11,10 @@ pokemon_mode = None
 run_count = None
 user_to_challenge = None
 gambit_exe_path = ""
-greeting_message = 'hf'
+greeting_message = 'maman godzilla!'
 battle_ending_message = 'gg'
+avatar = None
+room = None
 
 use_relative_weights = False
 damage_calc_type = 'average'
@@ -40,3 +42,4 @@ def init_logging(level):
     default_handler = logging.StreamHandler(sys.stdout)
     default_handler.setFormatter(default_formatter)
     logger.addHandler(default_handler)
+    

@@ -22,11 +22,13 @@ LOG_LEVEL: (string, default "DEBUG") The Python logging level
 WEBSOCKET_URI: (string, default is the official PokemonShowdown websocket address: "sim.smogon.com:8000") The address to use to connect to the Pokemon Showdown websocket 
 PS_USERNAME: (string, required) Pokemon Showdown username
 PS_PASSWORD: (string) Pokemon Showdown password 
-BOT_MODE: (string, required) The mode the the bot will operate in. Options are "CHALLENGE_USER", "SEARCH_LADDER", or "ACCEPT_CHALLENGE"
+BOT_MODE: (string, required) The mode the the bot will operate in. Options are "CHALLENGE_USER", "SEARCH_LADDER", "ACCEPT_CHALLENGE" or "TOUR_JOIN"
 USER_TO_CHALLENGE: (string, required if BOT_MODE is "CHALLENGE_USER") The user to challenge
 POKEMON_MODE: (string, required) The type of game this bot will play games in
 TEAM_NAME: (string, required if POKEMON_MODE is one where a team is required) The name of the file that contains the team you want to use. More on this below in the Specifying Teams section.
 RUN_COUNT: (integer, required) The amount of games this bot will play before quitting
+ROOM: la room a /join
+AVATAR: avatar du robot
 ```
 
 Here is a minimal `.env` file. This configuration will log in and search for a gen8randombattle:
@@ -37,6 +39,8 @@ PS_PASSWORD=MySuperSecretPassword
 BOT_MODE=SEARCH_LADDER
 POKEMON_MODE=gen8randombattle
 RUN_COUNT=1
+AVATAR=zinnia
+ROOM=SH
 ```
 
 ### Running without Docker

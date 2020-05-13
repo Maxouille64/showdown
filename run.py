@@ -39,6 +39,8 @@ def parse_configs():
     config.team_name = env("TEAM_NAME", None)
     config.pokemon_mode = env("POKEMON_MODE", constants.DEFAULT_MODE)
     config.run_count = int(env("RUN_COUNT", 1))
+    config.avatar = env("AVATAR")
+    config.room = env("ROOM")
 
     if config.bot_mode == constants.CHALLENGE_USER:
         config.user_to_challenge = env("USER_TO_CHALLENGE")
@@ -73,7 +75,7 @@ async def showdown():
     original_pokedex = deepcopy(pokedex)
     original_move_json = deepcopy(all_move_json)
 
-    ps_websocket_client = await PSWebsocketClient.create(config.username, config.password, config.websocket_uri)
+    ps_websocket_client = await PSWebsocketClient.create(config.username, config.password, config.websocket_uri, config.avatar, config.room)
     await ps_websocket_client.login()
 
     battles_run = 0
@@ -81,12 +83,16 @@ async def showdown():
     losses = 0
     while True:
         team = load_team(config.team_name)
+        print(config.team_name)
         if config.bot_mode == constants.CHALLENGE_USER:
             await ps_websocket_client.challenge_user(config.user_to_challenge, config.pokemon_mode, team)
         elif config.bot_mode == constants.ACCEPT_CHALLENGE:
             await ps_websocket_client.accept_challenge(config.pokemon_mode, team)
         elif config.bot_mode == constants.SEARCH_LADDER:
             await ps_websocket_client.search_for_match(config.pokemon_mode, team)
+        elif config.bot_mode == constants.TOUR_JOIN:
+            await ps_websocket_client.tour_join(config.pokemon_mode, team)
+
         else:
             raise ValueError("Invalid Bot Mode")
 
@@ -108,3 +114,4 @@ async def showdown():
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(showdown())
+
